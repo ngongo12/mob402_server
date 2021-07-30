@@ -376,4 +376,8 @@ line-height: 1.428571429;
    
 }
 
-
+.fixed-bottom{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}

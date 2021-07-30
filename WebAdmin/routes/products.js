@@ -5,31 +5,31 @@ const auth = require('../middle/auth');
 const protuctCont = require('../controllers/products');
 const brandCont = require('../controllers/brands')
 
-router.get('/',[auth.checkLogin], function(req, res, next) {
+router.get('/',[auth.checkLogin], async function(req, res, next) {
     
-    const products = protuctCont.get();
-    const brands = brandCont.get();
+    const products = await protuctCont.get();
+    const brands = await brandCont.get();
     res.render('products', { products: products, brands: brands });
 });
 
-router.delete('/delete/:id', [auth.checkLogin], function(req, res, next) {
+router.delete('/delete/:id', [auth.checkLogin], async function(req, res, next) {
     const {
         params : {id},
     } = req
-    protuctCont.delete(id);
+    await protuctCont.delete(id);
     res.json({result: true}); 
 });
 
-router.post('/update/:id', [auth.checkLogin], function(req, res, next) {
+router.post('/update/:id', [auth.checkLogin], async function(req, res, next) {
     let {params, body} = req;
-    protuctCont.update(params, body);
+    const isDeleted = await protuctCont.update(params, body);
 
-    res.redirect('/products');
+    res.redirect('/products', {isDeleted: isDeleted});
 });
 
-router.post('/add', [auth.checkLogin], function(req, res, next) {
+router.post('/add', [auth.checkLogin], async function(req, res, next) {
     let {body} = req;
-    protuctCont.add(body);
+    await protuctCont.add(body);
 
     res.redirect('/products');
 });

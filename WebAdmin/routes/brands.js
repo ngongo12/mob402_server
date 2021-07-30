@@ -5,8 +5,8 @@ const upload = require('../middle/upload');
 
 const brandCont = require('../controllers/brands')
 
-router.get('/',[auth.checkLogin], function(req, res, next) {
-    const brands = brandCont.get();
+router.get('/',[auth.checkLogin], async function(req, res, next) {
+    const brands = await brandCont.get();
     res.render('brands', { brands: brands });
 });
 

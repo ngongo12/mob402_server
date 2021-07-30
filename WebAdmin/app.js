@@ -16,6 +16,8 @@ const session = require('express-session');
 //mongo
 const mongoose = require('mongoose');
 require('./models/userModel');
+require('./models/brandModel');
+require('./models/productModel');
 
 var app = express();
 
@@ -29,12 +31,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 var hbs = require('hbs');
-hbs.registerHelper('soSanh', function (a, b, t){
-  return a.toString() == b.toString();
+hbs.registerHelper('getIndex', function (index, t){
+  return index+1;
 })
 
 hbs.registerHelper('getBrandImage', function (id, brands, t){
-  let brand = brands.filter(item => item.id == id)[0];
+  let brand = brands.filter(item => item._id.toString() == id.toString())[0];
   return brand.image;
 })
 

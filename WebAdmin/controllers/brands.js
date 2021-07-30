@@ -1,7 +1,7 @@
 const brandSer = require('../services/brands');
 
-exports.get = () => {
-    return brandSer.get();
+exports.get = async () => {
+    return await brandSer.get();
 }
 
 exports.add = (body) =>{
