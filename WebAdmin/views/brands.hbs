@@ -1,0 +1,225 @@
+<section id="container">
+    <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
+        <!--logo start-->
+        <a href="index.html" class="logo"><b>ADMIN PAGE</b></a>
+        <!--logo end-->
+
+        <div class="top-menu">
+            <ul class="nav pull-right top-menu">
+                <li><a class="logout" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered"><a href="profile.html"><img src="/images/ui-sam.jpg" class="img-circle"
+                            width="60"></a></p>
+                <h5 class="centered">Marcel Newman</h5>
+
+                <li>
+                    <a href="dashboard"><i class="fa fa-dashboard "></i>Dashboard</a>
+                </li>
+                <li>
+                    <a href="products"><i class="fa fa-table "></i>Products</a>
+                </li>
+                <li>
+                    <a class="active" href="brands"><i class="fa fa-list-alt "></i>Brands</a>
+                </li>
+                <li>
+                    <a href="users"><i class="fa fa-users "></i>Users Manager</a>
+                </li>
+                <li>
+                    <a href="orders"><i class="fa fa-shopping-cart "></i>Orders</a>
+                </li>
+                <li>
+                    <a href="charts"><i class="fa fa-bar-chart-o "></i> Revenue Charts</a>
+                </li>
+                <li>
+                    <a href="addnew"><i class="fa fa-edit "></i> Add New </a>
+                </li>
+                <li>
+                    <a href="change_password"><i class="fa fa-wrench "></i>Change Password</a>
+                </li>
+
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <h3><i class="fa fa-angle-right"></i>Danh sách nhãn hàng</h3>
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="setEmptyForModal()"><i
+                                    class="fa fa-edit "></i> New</button>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Number Of Products</th>
+                                            <th>Logo</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each brands}}
+                                        <tr class="odd gradeX align-middle">
+                                            <td class="center">{{this.id}}</td>
+                                            <td class="center">{{this.name}}</td>
+                                            <td class="center">{{this.amount}}</td>
+                                            <td class="center">
+                                                <img src="{{this.image}}" class="img-thumbnail" style="width: 100px" />
+                                            </td>
+                                            <td class="center">
+                                                <button class="btn btn-primary btn-xs" data-toggle="modal" onclick="setDataForModal({name:'{{this.name}}', id: {{this.id}}, image: '{{this.image}}' })"
+                                                    data-target="#myModal"><i class="fa fa-edit "></i>
+                                                    Edit</button>
+                                                <button class="btn btn-danger btn-xs"><i class="fa fa-pencil"></i>
+                                                    Delete</button>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+            <!-- row -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <form enctype="multipart/form-data" role="form" name="myform" id="myform" method="POST" onsubmit="return validationForm()" >
+                        <div class="modal-content">
+                            
+                            <div class="modal-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" id="modal-title">
+                                        Edit Brand
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-12">
+                                                
+                                            
+                                                <div class="form-group">
+                                                    <label>Name</label>
+                                                    <input class="form-control" name="name" id="name" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Image</label>
+                                                    <br>
+                                                    <img src="images/default.png" id="image-brand" class="img-thumbnail" style="width: 150px" />
+                                                </div>
+                                                
+    
+                                                <div class="form-group">
+                                                    <label>File input</label>
+                                                    <input type="file" onchange="readURL(this)" accept=".jpg,.jpeg,.png" id="image" name="image"/>
+                                                </div>
+    
+                                            
+                                            <br />
+    
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+        </section>
+        <!--/wrapper -->
+    </section>
+
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+        <div class="text-center">
+            2014 - Alvarez.is
+            <a href="index.html#" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+    <!--footer end-->
+</section>
+
+<script>
+    const setEmptyForModal = () => {
+        document.getElementById("image-brand").src = "/images/default.png";
+        document.getElementById("myform").reset();
+        document.getElementById("myform").action = "brands/add";
+        document.getElementById("modal-title").innerHTML = "Add New Brand";
+    }
+
+    const setDataForModal = (obj) => {
+        document.forms["myform"]["name"].value = obj.name;
+        document.getElementById("image-brand").src = obj.image;
+        document.getElementById("myform").action = "brands/update/" + obj.id;
+        document.getElementById("modal-title").innerHTML = "Edit Product";
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("image-brand").src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    const validationForm = () =>{
+        if(document.forms["myform"]["name"].value.trim()=="")
+        {
+            alert('Tên không được để trống');
+            document.forms["myform"]["name"].focus();
+            return false;
+        }
+        return true;
+    }
+</script>

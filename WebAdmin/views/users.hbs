@@ -1,0 +1,137 @@
+<section id="container">
+    <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
+        <!--logo start-->
+        <a href="index.html" class="logo"><b>ADMIN PAGE</b></a>
+        <!--logo end-->
+
+        <div class="top-menu">
+            <ul class="nav pull-right top-menu">
+                <li><a class="logout" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered"><a href="profile.html"><img src="/images/ui-sam.jpg" class="img-circle"
+                            width="60"></a></p>
+                <h5 class="centered">Marcel Newman</h5>
+
+                <li>
+                    <a href="dashboard"><i class="fa fa-dashboard "></i>Dashboard</a>
+                </li>
+                <li>
+                    <a href="products"><i class="fa fa-table "></i>Products</a>
+                </li>
+                <li>
+                    <a href="brands"><i class="fa fa-list-alt "></i>Brands</a>
+                </li>
+                <li>
+                    <a class="active" href="users"><i class="fa fa-users "></i>Users Manager</a>
+                </li>
+                <li>
+                    <a href="orders"><i class="fa fa-shopping-cart "></i>Orders</a>
+                </li>
+                <li>
+                    <a href="charts"><i class="fa fa-bar-chart-o "></i> Revenue Charts</a>
+                </li>
+                <li>
+                    <a href="addnew"><i class="fa fa-edit "></i> Add New </a>
+                </li>
+                <li>
+                    <a href="change_password"><i class="fa fa-wrench "></i>Change Password</a>
+                </li>
+
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <h3><i class="fa fa-angle-right"></i>Danh sách người dùng</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Users List
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Email</th>
+                                            <th>Tên</th>
+                                            <th>SignUp Day</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each members}}
+                                        <tr class="odd gradeX align-middle">
+                                            <td class="center">{{this.id}}</td>
+                                            <td class="center">{{this.email}}</td>
+                                            <td class="center">{{this.name}}</td>
+                                            <td class="center">
+                                                <script>
+                                                    formatDate('{{this.signUpAt}}')
+                                                </script>
+                                            </td>
+                                            <td class="center">
+
+                                                <button class="btn btn-danger btn-xs"><i class="fa fa-pencil"></i>
+                                                    Delete</button>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div><!-- row -->
+
+
+
+        </section>
+        <!--/wrapper -->
+    </section>
+
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+        <div class="text-center">
+            2014 - Alvarez.is
+            <a href="index.html#" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+    <!--footer end-->
+</section>
