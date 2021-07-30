@@ -105,7 +105,7 @@
                                                 <img src="{{getBrandImage this.brand ../brands}}" class="img-thumbnail"
                                                     style="width: 100px" />
                                             </td>
-                                            <td class="center">
+                                            <td class="center text-primary font-weight-bold">
                                                 <script>
                                                     fmNumber({{ this.price }})
                                                 </script>
@@ -126,8 +126,9 @@
                                                     onclick="setDataForModal({ id:'{{this._id}}', name:'{{this.name}}', price:{{this.price}}, amount:{{this.amount}}, date:'{{this.date}}', image:'{{this.image}}', brand:'{{this.brand}}', description:`{{this.description}}` })"><i
                                                         class="fa fa-edit "></i>
                                                     Edit</button>
-                                                <button class="btn btn-danger btn-xs"
-                                                    onclick="askForDelete({id:'{{this._id}}', name:'{{this.name}}'})"><i
+                                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal"
+                                                    onclick="askForDelete({id:'{{this._id}}', name:'{{this.name}}'})"
+                                                    ><i
                                                         class="fa fa-trash-o"></i>
                                                     Delete</button>
                                             </td>
@@ -242,15 +243,32 @@
             </div><!-- row -->
             {{#if isDeleted}}
             <div class="fixed-bottom">
-                
+
                 <div class="alert alert-info alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <strong>Warning!</strong> Better check yourself, you're not looking too good.
                 </div>
-                
+
             </div>
             {{/if}}
-
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Delete</h4>
+                        </div>
+                        <div class="modal-body" id="modalMessage">
+                            Hi there, I am a Modal Example for Dashgum Admin Panel.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnDel">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </section>
         <!--/wrapper -->
@@ -271,13 +289,9 @@
 <script type="text/javascript">
 
     const askForDelete = async (obj) => {
-        //var cf = confirm("Bạn muốn xóa sản phẩm: " + obj.name);
-        //if (cf == true) {
-        //    onDelete(obj.id);
-        //} else {
+        document.getElementById("modalMessage").innerHTML="Bạn muốn xóa sản phẩm: " + obj.name
+        document.getElementById("btnDel").setAttribute('onclick','onDelete(\''+ obj.id +'\')');
 
-        //}
-        
     }
 
     const validationForm = () => {

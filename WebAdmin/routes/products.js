@@ -16,15 +16,17 @@ router.delete('/delete/:id', [auth.checkLogin], async function(req, res, next) {
     const {
         params : {id},
     } = req
-    await protuctCont.delete(id);
-    res.json({result: true}); 
+    const isDeleted = await protuctCont.delete(id);
+    res.json({isDeleted: isDeleted}); 
 });
 
 router.post('/update/:id', [auth.checkLogin], async function(req, res, next) {
     let {params, body} = req;
-    const isDeleted = await protuctCont.update(params, body);
+    await protuctCont.update(params, body);
 
-    res.redirect('/products', {isDeleted: isDeleted});
+    console.log('>>>>>>>>isDeleted: ',isDeleted);
+
+    res.redirect('/products');
 });
 
 router.post('/add', [auth.checkLogin], async function(req, res, next) {
