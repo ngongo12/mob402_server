@@ -10,6 +10,8 @@ var usersRouter = require('./routes/users');
 var brandsRouter = require('./routes/brands');
 var productsRouter = require('./routes/products');
 var membersRouter = require('./routes/members');
+var productAPIRouter = require('./routes/product_api');
+var brandsAPIRouter = require('./routes/brands_api')
 
 const session = require('express-session');
 
@@ -58,6 +60,10 @@ app.use('/', indexRouter);
 app.use('/brands', brandsRouter);
 app.use('/products', productsRouter);
 app.use('/users', membersRouter);
+
+//api
+app.use('/api/products', productAPIRouter)
+app.use('/api/brands', brandsAPIRouter)
 
 
 // catch 404 and forward to error handler

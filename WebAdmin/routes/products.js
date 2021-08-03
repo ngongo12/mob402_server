@@ -24,8 +24,6 @@ router.post('/update/:id', [auth.checkLogin], async function(req, res, next) {
     let {params, body} = req;
     await protuctCont.update(params, body);
 
-    console.log('>>>>>>>>isDeleted: ',isDeleted);
-
     res.redirect('/products');
 });
 

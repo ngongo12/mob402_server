@@ -4,13 +4,13 @@ exports.get = async () => {
     return await brandSer.get();
 }
 
-exports.add = (body) =>{
+exports.add = async (body) =>{
     let {name, image} = body;
-    brandSer.add({name, image});
+    await brandSer.add({name, image});
 }
 
-exports.update = (params, body) => {
+exports.update = async (params, body) => {
     let {id} = params;
     let {name, image} = body;
-    brandSer.update({id, name, image});
+    await brandSer.update({id, name, image});
 }

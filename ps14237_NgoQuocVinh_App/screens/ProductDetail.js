@@ -7,7 +7,8 @@ import {
     View,
     Image,
     Dimensions,
-    TouchableHighlight
+    TouchableHighlight,
+    ActivityIndicator
   
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -15,20 +16,40 @@ import Products from '../components/Products'
 import HeaderBar from '../components/HeaderBar'
 import Brands from '../components/Brands'
 import Price from '../components/Price'
+import { useState, useEffect } from 'react/cjs/react.development';
 
 const windowW=Dimensions.get('window').width;
-const ProductDetails = () => {
-    const item = {id: 1, name: 'Asus 1231', brand: 'Asus', price: 10000000, amount: 100, date: '2000-01-01', image: require('../images/laptop1.jpg'),
-        description: 'Laptop Acer Nitro 5 AN515 45 R3SM R5 (NH.QBMSV.005) có vẻ ngoài hình hầm hố đặc trưng của dòng laptop gaming, cấu hình mạnh mẽ chạy mượt các tựa game được các game thủ ưa thích với con chip AMD Ryzen 5 và card đồ họa NVIDIA GeForce GTX 1650 4GB.'
-        +'Bộ xử lí mạnh mẽ, dành riêng để chiến game'
-        +'Chiếc laptop Acer này được trang bị con chip AMD Ryzen 5 5600H cho hiệu năng mượt mà chạy tốt các ứng dụng đồ họa đến các tựa game cấu hình cao với với 6 lõi 12 luồng, xung nhịp trung bình là 3.30 GHz và đạt tối đa lên đến 4.2 GHz nhờ Turbo Boost.'
-        
-        +'RAM 8 GB DDR4 (2 khe) cho khả năng đa nhiệm mượt mà, bạn có thể mở cùng lúc nhiều tab Chrome, ứng dụng mà không lo máy bị giật, lag với tốc độ Bus RAM 3200 MHz. Hỗ trợ khe RAM tối đa lên đến 32 GB thuận tiện hơn cho việc nâng cấp khi nhu cầu sử dụng cao.'}
+const ProductDetails = (props) => {
+    const {navigation, route:{params:{id}}} = props
+
+    console.log(id)
+    const [item, setItem] = useState()
+
+    useEffect(()=>{
+        fetch('http://192.168.1.4:3000/api/products/'+id)
+            .then((res)=> res.json())
+            .then((data) => setItem(data.product))
+            .catch((e) => console.log('Lỗi lấy danh sách ',e))
+    }, [])
+
+    console.log(item)
+
+    if (!item) {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color="#00ff00" />
+                <Text style={styles.text}>
+                    Đang lấy thông tin sản phẩm xin chờ
+                </Text>
+            </View>
+        )
+    }
+
     return (
         <View style={{flex: 1}}>
             <HeaderBar/>
-            <ScrollView style={styles.container}>
-                <Image source={item.image} style={styles.image} />
+            <ScrollView style={styles.containerScrollview}>
+                <Image source={{uri:item.image}} style={styles.image} />
                 <View style={styles.nameWrap}>
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={{color:'red'}}><Price value={item.price} style={styles.price} />đ</Text>
@@ -72,7 +93,15 @@ const ProductDetails = () => {
 export default ProductDetails;
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
+    },
+    text: {
+        fontSize: 18
+    },
+    containerScrollview:{
         flex: 1
     },
     image:{

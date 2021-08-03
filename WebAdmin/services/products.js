@@ -7,9 +7,8 @@ exports.get = async function getAllStudents() {
     return products;
 }
 
-exports.getById = (id) =>{
-    const product = products.filter(item => item.id.toString() == id.toString())[0] || null;
-    return product;
+exports.getById = async (id) =>{
+    return await productModel.findById(id);
 }
 
 exports.delete = async (id) =>{

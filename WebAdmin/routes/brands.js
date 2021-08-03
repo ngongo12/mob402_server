@@ -10,7 +10,7 @@ router.get('/',[auth.checkLogin], async function(req, res, next) {
     res.render('brands', { brands: brands });
 });
 
-router.post('/add', [auth.checkLogin, upload.single('image')], function(req, res, next) {
+router.post('/add', [auth.checkLogin, upload.single('image')], async function(req, res, next) {
     let {body, file} = req;
 
     if(file){
@@ -22,18 +22,18 @@ router.post('/add', [auth.checkLogin, upload.single('image')], function(req, res
         body = {...body, image}
     }
 
-    brandCont.add(body);
+    await brandCont.add(body);
 
     res.redirect('/brands');
 });
 
-router.post('/update/:id', [auth.checkLogin, upload.single('image')], function(req, res, next) {
+router.post('/update/:id', [auth.checkLogin, upload.single('image')], async function(req, res, next) {
     let {params, body, file} = req;
     if(file){
         let image = '/images/' + file.originalname;
         body = {...body, image}
     }
-    brandCont.update(params, body);
+    await brandCont.update(params, body);
 
     res.redirect('/brands');
 });

@@ -17,13 +17,13 @@ const windowW=Dimensions.get('window').width;
 const Item = props => {
     const {item, navigate} = props;
     return (
-        <Pressable style={styles.container} onPress={()=>navigate('ProductDetails')}>
-            <Image source={item.image} style={styles.image} />
+        <Pressable style={styles.container} onPress={()=>navigate('ProductDetails', {id: item._id})}>
+            <Image source={{uri:item.image}} style={styles.image} />
             <View style={styles.heart}>
                 <Ionicons name="heart" color="white" size={22} />
             </View>
             
-            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.name} numberOfLines={2} ellipsizeMode='tail'>{item.name}</Text>
             <View style={styles.priceView}>
                 <View style={{flexDirection: 'row', flex: 1}}>
                     <Price style={styles.price} value={item.price}/><Text style={{color:'red'}}>đ</Text>
@@ -39,7 +39,8 @@ export default Item;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        marginLeft: windowW*0.02,
+        marginLeft: windowW*0.01,
+        marginRight:  windowW*0.01,
         marginTop:  windowW*0.02,
 
         shadowColor: "#000",
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
 
         elevation: 5,
+        flex: 1
     },
     name:{
         fontSize: 18,
@@ -77,12 +79,13 @@ const styles = StyleSheet.create({
         right: 5
     },
     image: {
-        width: windowW*0.47,
+        width: windowW*0.48,
         height: windowW*0.4,
         marginBottom: 10,
         resizeMode: 'cover',
         borderWidth: 3,
-        borderColor: 'blue'
+        borderBottomWidth: 0,
+        borderColor: 'grey'
     },
     priceView:{
         flexDirection: 'row',

@@ -15,24 +15,29 @@ import {
 } from 'react-native';
 
 const Brands = props => {
-    const brands = [
-        {id: 1,image: require('../images/mac.png')},
-        {id: 2,image: require('../images/asus.png')},
-        {id: 3,image: require('../images/dell.png')},
-        {id: 4,image: require('../images/lenovo.png')},
-        {id: 5,image: require('../images/acer.png')},
-        {id: 6,image: require('../images/hp.png')},
-        {id: 7,image: require('../images/lg.png')},
-        {id: 8,image: require('../images/msi.png')},
-    ]
+    const [brands, setBrands] = useState();
+
+    useEffect(()=>{
+        fetch('http://192.168.1.4:3000/api/brands')
+            .then((res)=> res.json())
+            .then((data) => setBrands(data.brands))
+            .catch((e) => console.log('Lỗi lấy danh sách ',e))
+    }, [])
+
+    console.log(brands)
 
     const Item = props =>{
         const {item} = props;
         return(
             <View style={styles.wrapper}>
-                <Image source={item.image} style={styles.image} />
+                <Image source={{uri:'http://192.168.1.4:3000/'+item.image}} style={styles.image} />
             </View>
         )
+    }
+
+    if(!brands)
+    {
+        return(<View />)
     }
 
     return (
@@ -41,7 +46,7 @@ const Brands = props => {
             renderItem={({item})=>
                     <Item item={item} />
                 }
-            keyExtractor={key=>key.id}
+            keyExtractor={item=>item._id}
             style={styles.list}
             horizontal={true}
             style={styles.container}
@@ -74,5 +79,6 @@ const styles = StyleSheet.create({
     image: {
         width: 120,
         height: 30,
+        resizeMode: 'cover'
     }
 })

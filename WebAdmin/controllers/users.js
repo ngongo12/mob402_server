@@ -8,9 +8,17 @@ exports.get = async function getAllStudents(username, password) {
     const user = await usersSer.get(username);
     if(!user)
     {
-        return false;
+        return null;
     }
     else {
-        return await bcrypt.compare(password, user.password);
+        const check = await bcrypt.compare(password, user.password);
+        if(check)
+        {
+            return {id: user.id, username: username}
+        }
+        else
+        {
+            return null
+        }
     }
 }

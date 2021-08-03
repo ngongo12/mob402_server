@@ -35,7 +35,7 @@ const App = props => {
             <StatusBar translucent backgroundColor='white' barStyle='dark-content' />
             <View style={{height: StatusBar.currentHeight, backgroundColor:'transparent'}} />
             <NavigationContainer>
-                <RootStack.Navigator initialRouteName="FirstScreen">
+                <RootStack.Navigator initialRouteName="MainScreen">
                     <RootStack.Screen
                         name="MainScreen"
                         component={MainScreen}

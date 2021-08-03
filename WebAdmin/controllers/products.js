@@ -4,8 +4,8 @@ exports.get = async () => {
     return await productSer.get();
 }
 
-exports.getById = (id) =>{
-    return productSer.getById(id);
+exports.getById = async (id) =>{
+    return await productSer.getById(id);
 }
 
 exports.delete = async (id) => {
